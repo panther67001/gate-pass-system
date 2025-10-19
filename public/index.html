@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Gate Pass Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <h1>🎓 Smart Gate Pass System</h1>
+                    <p>Streamlined gate pass management for educational institutions</p>
+                </div>
+            </header>
+            
+            <main class="main-content">
+                <div class="hero-section">
+                    <h2>Welcome to Digital Gate Pass Management</h2>
+                    <p>Paperless, efficient, and secure gate pass system for students, faculty, and security personnel</p>
+                </div>
+                
+                <div class="role-selection">
+                    <h3>Select Your Role</h3>
+                    <div class="role-cards">
+                        <div class="role-card" onclick="showLogin('student')">
+                            <div class="role-icon">👨‍🎓</div>
+                            <h4>Student</h4>
+                            <p>Request and track gate passes</p>
+                        </div>
+                        <div class="role-card" onclick="showLogin('hod')">
+                            <div class="role-icon">👩‍🏫</div>
+                            <h4>HOD / Faculty</h4>
+                            <p>Approve or reject gate pass requests</p>
+                        </div>
+                        <div class="role-card" onclick="showLogin('security')">
+                            <div class="role-icon">👮</div>
+                            <h4>Security</h4>
+                            <p>Validate and track entry/exit</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="login-page" class="page">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <button class="back-btn" onclick="showPage('landing-page')">← Back</button>
+                    <h2 id="login-title">Login</h2>
+                </div>
+                
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label for="login-email" class="form-label">Email / Roll Number / Employee ID</label>
+                        <input type="text" id="login-email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password" class="form-label">Password</label>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="remember-me">
+                            <span class="checkmark"></span>
+                            Remember me
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                    
+                    <div class="auth-footer">
+                        <p>Don't have an account? <a href="#" id="signup-link">Sign up here</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sign Up Page -->
+    <div id="signup-page" class="page">
+        <div class="container">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <button class="back-btn" onclick="showPage('landing-page')">← Back</button>
+                    <h2 id="signup-title">Sign Up</h2>
+                </div>
+                
+                <form id="signup-form" class="auth-form">
+                    <!-- Common fields -->
+                    <div class="form-group">
+                        <label for="signup-name" class="form-label">Full Name</label>
+                        <input type="text" id="signup-name" class="form-control" required>
+                    </div>
+                    
+                    <!-- Student specific fields -->
+                    <div class="student-fields form-fields">
+                        <div class="form-group">
+                            <label for="signup-roll" class="form-label">Roll Number</label>
+                            <input type="text" id="signup-roll" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-department" class="form-label">Department</label>
+                            <select id="signup-department" class="form-control">
+                                <option value="">Select Department</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Electrical">Electrical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="signup-email" class="form-label">Email</label>
+                            <input type="email" id="signup-email" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- HOD specific fields -->
+                    <div class="hod-fields form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="hod-empid" class="form-label">Employee ID</label>
+                            <input type="text" id="hod-empid" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hod-department" class="form-label">Department</label>
+                            <select id="hod-department" class="form-control">
+                                <option value="">Select Department</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Mechanical">Mechanical</option>
+                                <option value="Civil">Civil</option>
+                                <option value="Electrical">Electrical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hod-email" class="form-label">Email</label>
+                            <input type="email" id="hod-email" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <!-- Security specific fields -->
+                    <div class="security-fields form-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="security-empid" class="form-label">Employee ID</label>
+                            <input type="text" id="security-empid" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="signup-password" class="form-label">Password</label>
+                        <input type="password" id="signup-password" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password" class="form-label">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn--primary btn--full-width">Sign Up</button>
+                    
+                    <div class="auth-footer">
+                        <p>Already have an account? <a href="#" id="login-link">Login here</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="student-dashboard" class="page">
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="student-welcome">Welcome, Student</h2>
+                    <p id="student-details">Roll: CS21B001 | Department: Computer Science</p>
+                </div>
+                <button class="btn btn--outline logout-btn" onclick="logout()">Logout</button>
+            </header>
+            
+            <div class="dashboard-content">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-requests">0</div>
+                        <div class="stat-label">Total Requests</div>
+                    </div>
+                    <div class="stat-card approved">
+                        <div class="stat-number" id="approved-requests">0</div>
+                        <div class="stat-label">Approved</div>
+                    </div>
+                    <div class="stat-card rejected">
+                        <div class="stat-number" id="rejected-requests">0</div>
+                        <div class="stat-label">Rejected</div>
+                    </div>
+                    <div class="stat-card pending">
+                        <div class="stat-number" id="pending-requests">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-actions">
+                    <button class="btn btn--primary" onclick="showRequestForm()">📝 Request New Gate Pass</button>
+                </div>
+                
+                <div class="current-status" id="current-status">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+                
+                <div class="request-history">
+                    <h3>Request History</h3>
+                    <div class="table-container">
+                        <table class="history-table" id="student-history-table">
+                            <thead>
+                                <tr>
+                                    <th>Pass ID</th>
+                                    <th>Date</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Request Gate Pass Form -->
+    <div id="request-form" class="page">
+        <div class="container">
+            <div class="form-container">
+                <div class="form-header">
+                    <button class="back-btn" onclick="showStudentDashboard()">← Back to Dashboard</button>
+                    <h2>Request Gate Pass</h2>
+                </div>
+                
+                <form id="gate-pass-form" class="request-form">
+                    <div class="form-group">
+                        <label for="request-reason" class="form-label">Reason for Leaving</label>
+                        <textarea id="request-reason" class="form-control" rows="3" required placeholder="Describe the reason for your gate pass request"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="request-destination" class="form-label">Destination</label>
+                        <input type="text" id="request-destination" class="form-control" required placeholder="Where are you going?">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="request-date" class="form-label">Date of Exit</label>
+                            <input type="date" id="request-date" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="request-time" class="form-label">Expected Return Time</label>
+                            <input type="time" id="request-time" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn--outline" onclick="showStudentDashboard()">Cancel</button>
+                        <button type="submit" class="btn btn--primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Digital Pass View -->
+    <div id="digital-pass" class="page">
+        <div class="container">
+            <div class="pass-container">
+                <div class="pass-header">
+                    <button class="back-btn" onclick="showStudentDashboard()">← Back to Dashboard</button>
+                    <h2>Digital Gate Pass</h2>
+                    <button class="btn btn--outline print-btn" onclick="printPass()">🖨️ Print</button>
+                </div>
+                
+                <div class="digital-pass-card" id="pass-content">
+                    <div class="pass-title">
+                        <h3>🎓 GATE PASS</h3>
+                        <p>Smart Gate Pass Management System</p>
+                    </div>
+                    
+                    <div class="pass-details">
+                        <div class="student-photo">
+                            <div class="photo-placeholder">📷</div>
+                        </div>
+                        
+                        <div class="pass-info">
+                            <div class="info-row">
+                                <span class="label">Student Name:</span>
+                                <span class="value" id="pass-student-name">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Roll Number:</span>
+                                <span class="value" id="pass-roll-number">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Department:</span>
+                                <span class="value" id="pass-department">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Pass ID:</span>
+                                <span class="value" id="pass-id">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Reason:</span>
+                                <span class="value" id="pass-reason">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Destination:</span>
+                                <span class="value" id="pass-destination">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Date &amp; Time:</span>
+                                <span class="value" id="pass-date-time">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Approved By:</span>
+                                <span class="value" id="pass-approved-by">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Approval Date:</span>
+                                <span class="value" id="pass-approval-date">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pass-footer">
+                        <div class="status-badge approved" id="pass-status">APPROVED</div>
+                        <div class="signature">
+                            <p>Authorized Signature</p>
+                            <div class="signature-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOD Dashboard -->
+    <div id="hod-dashboard" class="page">
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="hod-welcome">Welcome, Dr. HOD</h2>
+                    <p id="hod-details">Department: Computer Science</p>
+                </div>
+                <button class="btn btn--outline logout-btn" onclick="logout()">Logout</button>
+            </header>
+            
+            <div class="dashboard-content">
+                <div class="stats-cards">
+                    <div class="stat-card pending highlighted">
+                        <div class="stat-number" id="hod-pending-requests">0</div>
+                        <div class="stat-label">Pending Requests</div>
+                    </div>
+                    <div class="stat-card approved">
+                        <div class="stat-number" id="hod-approved-requests">0</div>
+                        <div class="stat-label">Total Approved</div>
+                    </div>
+                    <div class="stat-card rejected">
+                        <div class="stat-number" id="hod-rejected-requests">0</div>
+                        <div class="stat-label">Total Rejected</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="hod-today-activity">0</div>
+                        <div class="stat-label">Today's Activity</div>
+                    </div>
+                </div>
+                
+                <div class="pending-section">
+                    <h3>Pending Requests</h3>
+                    <div class="pending-requests" id="pending-requests-container">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="activity-section">
+                    <h3>Recent Activity</h3>
+                    <div class="table-container">
+                        <table class="history-table" id="hod-activity-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Roll Number</th>
+                                    <th>Reason</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Dashboard -->
+    <div id="security-dashboard" class="page">
+        <div class="dashboard-container">
+            <header class="dashboard-header">
+                <div class="user-info">
+                    <h2 id="security-welcome">Welcome, Security</h2>
+                    <p>Gate Pass Validation System</p>
+                </div>
+                <button class="btn btn--outline logout-btn" onclick="logout()">Logout</button>
+            </header>
+            
+            <div class="dashboard-content">
+                <div class="stats-cards">
+                    <div class="stat-card">
+                        <div class="stat-number" id="today-entries">0</div>
+                        <div class="stat-label">Today's Entries</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="today-exits">0</div>
+                        <div class="stat-label">Today's Exits</div>
+                    </div>
+                    <div class="stat-card highlighted">
+                        <div class="stat-number" id="currently-out">0</div>
+                        <div class="stat-label">Currently Out</div>
+                    </div>
+                </div>
+                
+                <div class="validation-section">
+                    <h3>Pass Validation</h3>
+                    <form id="validation-form" class="validation-form">
+                        <div class="search-container">
+                            <div class="form-group">
+                                <label for="search-input" class="form-label">Search by Roll Number or Pass ID</label>
+                                <input type="text" id="search-input" class="form-control" placeholder="Enter roll number or pass ID" required>
+                            </div>
+                            <div class="search-actions">
+                                <button type="submit" class="btn btn--primary">🔍 Search</button>
+                                <button type="button" class="btn btn--outline" onclick="clearSearch()">Clear</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="validation-result" id="validation-result">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="entry-log-section">
+                    <h3>Entry/Exit Log</h3>
+                    <div class="table-container">
+                        <table class="history-table" id="entry-exit-table">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Roll Number</th>
+                                    <th>Department</th>
+                                    <th>Entry Time</th>
+                                    <th>Exit Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+        <div class="modal-content">
+            <h3 id="modal-title">Confirm Action</h3>
+            <p id="modal-message">Are you sure you want to proceed?</p>
+            <div class="modal-actions">
+                <button class="btn btn--outline" onclick="closeModal()">Cancel</button>
+                <button class="btn btn--primary" id="modal-confirm-btn" onclick="confirmAction()">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Remarks Modal -->
+    <div id="remarks-modal" class="modal">
+        <div class="modal-content">
+            <h3>Add Remarks</h3>
+            <div class="form-group">
+                <label for="remarks-text" class="form-label">Remarks (Required for rejection)</label>
+                <textarea id="remarks-text" class="form-control" rows="3" placeholder="Enter your remarks here"></textarea>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn--outline" onclick="closeRemarksModal()">Cancel</button>
+                <button class="btn btn--primary" onclick="submitWithRemarks()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
